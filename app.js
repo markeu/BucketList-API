@@ -1,11 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-// import Routes from './routes/index';
+import Routes from './routes/index';
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use('/api/v1/', Routes);
+app.use('/api/v1/', Routes);
 
 
 app.get('/', (req, res) => {
