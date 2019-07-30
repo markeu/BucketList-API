@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import UserModel from '../models/userModel';
-import { encryptPassword, decryptPassword, generateToken } from '../utilities/encrypt';
+import { encryptPassword, generateToken } from '../utilities/encrypt';
 import pool from '../db/db';
 
 const { createUser } = UserModel;
