@@ -54,4 +54,47 @@ export class UsersController {
       });
     }
   }
+
+  /**
+   *
+   * Login Middleware - Logs user into the application
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {function} next
+   * @returns {object} Object containing token to the user
+   * @memberof UsersController
+   */
+  static async login(req, res) {
+    try {
+      const data = req.body;
+      const query = 'SELECT * FROM users WHERE email = $1';
+      const { rows } = await pool.query(query, [req.body.email]);
+      if (!rows[0]) {
+        return res.status(404).json({
+          status: 'error',
+          error: 'The credentials you provided is incorrect',
+        });
+      }
+      const passwordValid = await decryptPassword(data.password, rows[0].password);
+
+      if (!passwordValid) {
+        return res.status(400).json({
+          status: 'error',
+          error: 'The credentials you provided is incorrect',
+        });
+      }
+      const userData = { id: rows[0].id, email: rows[0].email };
+      const token = await generateToken(userData);
+      return res.status(201).json({
+        status: 'success',
+        data: { ...rows[0], token },
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 'error',
+        error: 'Internal server error',
+      });
+    }
+  }
 }
