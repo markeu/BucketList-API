@@ -1,0 +1,43 @@
+{
+  "name": "bucketlist-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node app.js",
+    "create-table": " babel-node db/createTable.js",
+    "drop-table": " babel-node db/dropTable.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markeu/BucketList-API.git"
+  },
+  "author": "Uche Uzochukwu Mark",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/markeu/BucketList-API/issues"
+  },
+  "homepage": "https://github.com/markeu/BucketList-API#readme",
+  "dependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/node": "^7.4.5",
+    "@babel/polyfill": "^7.4.4",
+    "babel-eslint": "^10.0.2",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "dotenv": "^8.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "bcryptjs": "^2.4.3",
+    "pg": "^7.11.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.2",
+    "mocha": "^6.2.0"
+  }
+}
