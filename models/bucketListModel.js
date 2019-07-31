@@ -70,4 +70,19 @@ export default class BucketLists {
     );
     return data.rows[0];
   }
+
+  /**
+   *
+   * Delete BucketList
+   * @static
+   * @param {string} userId
+   * @param {string} propertyId
+   * @returns {object} Delete bucketList
+   * @memberof BucketList
+   */
+  static async deleteOneBucketList(id) {
+    const data = await pool.query("DELETE FROM bucketLists WHERE id= $1", [id]);
+    if (data.rowCount === 1) return true;
+    return false;
+  }
 }

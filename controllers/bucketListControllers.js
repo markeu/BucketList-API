@@ -1,7 +1,7 @@
 import bucketListModel from '../models/bucketListModel';
 
 const {
-  create, getbucketListQuery, selectOneBucketList, updateBucketList
+  create, getbucketListQuery, selectOneBucketList, updateBucketList, deleteOneBucketList
 } = bucketListModel;
 
 
@@ -153,5 +153,42 @@ export default class BucketListController {
         error: 'Internal server error',
       });
     }
+  }
+
+   /**
+   *
+   * Method to delete buckelist
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} containing response to the user
+   * @memberof BucketList Controller
+   */
+  static async deleteBucketlist(req, res) {
+    const { id } = req.params;
+    const bucketListId = await selectOneBucketList(id);
+    if (!bucketListId) {
+      return res.status(400).json({
+       status: 'error',
+       error: 'bucketList does not exist',
+     });
+   }   
+   if ( req.user.id != bucketListId.created_by)
+   return res.status(401).json({
+     status: 'error',
+     error: 'unauthorized',
+   });
+
+    const deletedBucketList = await deleteOneBucketList(id);
+    if (deletedBucketList ) {
+      return res.status(200).json({
+        status: 'success',
+        data: {message:'BucketList succesfully deleted'}
+      });
+    }
+    return res.status(400).json({
+      status: 'error',
+      error: 'Internal server error'
+    });
   }
 }
