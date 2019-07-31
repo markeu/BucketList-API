@@ -26,10 +26,9 @@ const tablesQuerry = `
         bucketList_id INT NOT NULL,
         date_created TIMESTAMP WITHOUT TIME ZONE DEFAULT (now () AT TIME ZONE 'WAT' ),
         date_modified TIMESTAMP WITHOUT TIME ZONE,
-        done VARCHAR(10) DEFAULT 'false',
+        done VARCHAR NOT NULL DEFAULT 'false',
         FOREIGN KEY (bucketList_id) REFERENCES bucketLists(id)
     );
-   
 `;
 
 

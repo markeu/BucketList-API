@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import UserModel from '../models/userModel';
-import { encryptPassword, generateToken } from '../utilities/encrypt';
+import { encryptPassword, generateToken, decryptPassword } from '../utilities/encrypt';
 import pool from '../db/db';
 
 const { createUser } = UserModel;
@@ -77,7 +77,6 @@ export class UsersController {
         });
       }
       const passwordValid = await decryptPassword(data.password, rows[0].password);
-
       if (!passwordValid) {
         return res.status(400).json({
           status: 'error',
