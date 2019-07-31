@@ -54,4 +54,20 @@ export default class BucketLists {
     const data = await pool.query( "SELECT * FROM bucketLists WHERE id= $1;", [id]);
     return data.rows[0];
   }
+
+  /**
+   * @static
+   * @description Method to update bucketlist
+   * @param {number} id Id of the bucketlist to be updated
+   * @param {string} name new detail of the property
+   * @returns {object} Details of the newly updated bucketlist
+   * @memberof BucketListModel
+   */
+  static async updateBucketList({ name, id }) {
+    const data = await pool.query(
+      `UPDATE bucketLists SET name= $1 
+      WHERE id= $2 RETURNING *`, [name, id]
+    );
+    return data.rows[0];
+  }
 }
