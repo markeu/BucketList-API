@@ -28,4 +28,18 @@ export default class BucketLists {
       RETURNING *`, [name, date, created_by]);
     return rows[0];
   }
+
+  /**
+   * @static
+   * @description Method to select all bucketLists with details
+   * @param {number} id Id of the bucketLists to be returned
+   * @returns {array} All bucketLists in the DB
+   * @memberof BucketList
+   */
+  static async getbucketListQuery() {
+    const data = await pool.query(
+      `SELECT * FROM bucketLists`
+      );
+      return data.rows;
+  }
 }

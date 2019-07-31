@@ -1,7 +1,7 @@
 import bucketListModel from '../models/bucketListModel';
 
 const {
-  create
+  create, getbucketListQuery
 } = bucketListModel;
 
 
@@ -29,6 +29,37 @@ export default class BucketListController {
       return res.status(201).json({
         status: 'success',
         data: newBucketList,
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 'error',
+        error: 'Internal server error',
+      });
+    }
+  }
+
+  /**
+   * @description Get all bucketlists
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {function} next
+   * @returns {object} bucketListsDetails
+   * @memberof BucketListController
+   */
+  static async getAllbucketLists(req, res, next) {
+    try {
+      const allBucketLists = await getbucketListQuery();
+      if (allBucketLists.length > 0) {
+        return res.status(200).json({
+            status: 'success',
+            data: allBucketLists,
+          });
+      }
+      return res.status(400).json({
+        status: 'error',
+        error: 'There are no bucketlist in this database',
       });
     } catch (err) {
       return res.status(500).json({
