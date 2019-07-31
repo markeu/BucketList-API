@@ -48,5 +48,24 @@ export default class ItemController {
    * @returns {object} bucketListsDetails
    * @memberof BucketListController
    */
-  
+  static async getAllItem(req, res, next) {
+    try {
+      const allItem = await getItemQuery();
+      if (allItem.length > 0) {
+        return res.status(200).json({
+            status: 'success',
+            data: allItem,
+          });
+      }
+      return res.status(400).json({
+        status: 'error',
+        error: 'There are no item in this database',
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 'error',
+        error: 'Internal server error',
+      });
+    }
+  }
 }
