@@ -1,7 +1,7 @@
 import bucketListModel from '../models/bucketListModel';
 
 const {
-  create, getbucketListQuery
+  create, getbucketListQuery, selectOneBucketList
 } = bucketListModel;
 
 
@@ -66,6 +66,38 @@ export default class BucketListController {
         status: 'error',
         error: 'Internal server error',
       });
+    }
+  }
+
+/**
+   * @description Get specific bucketlist
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {function} next
+   * @returns {object} bucketListsDetails
+   * @memberof BucketListController
+   */
+  static async getSpecificBucketList(req, res, next) {
+    try {
+      const { id } = req.params;
+      const bucketListDetails = await selectOneBucketList(parseInt(id, 10));
+      if (bucketListDetails) {
+        return  res.status(200).json({
+            status: 'success',
+            data: bucketListDetails ,
+          });
+      }
+        return  res.status(400).json({
+            status: 'error',
+            error: 'Bucketlist not found',
+          });
+    }catch (err) {
+    return res.status(500).json({
+      status: 'error',
+      error: 'Internal server error',
+    });
     }
   }
 }

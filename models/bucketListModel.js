@@ -42,4 +42,16 @@ export default class BucketLists {
       );
       return data.rows;
   }
+
+  /**
+   * @static
+   * @description Method to select one specific BucketList
+   * @param {number} id Id of the BucketList to be returned
+   * @returns {object} Single BucketList details
+   * @memberof BucketList
+   */  
+  static async selectOneBucketList(id) {
+    const data = await pool.query( "SELECT * FROM bucketLists WHERE id= $1;", [id]);
+    return data.rows[0];
+  }
 }

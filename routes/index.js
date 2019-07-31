@@ -7,10 +7,11 @@ import { verifyToken } from '../middlewares/authenticate';
 const router = express.Router();
 
 const { signUp, login } = UsersController;
-const { createBucketList, getAllbucketLists } = bucketListController;
+const { createBucketList, getAllbucketLists, getSpecificBucketList } = bucketListController;
 
 router.post('/auth/signup', validation.auth, signUp);
 router.post('/auth/login', validation.auth, login);
 router.post('/bucketlists', verifyToken, createBucketList);
 router.get('/bucketLists', getAllbucketLists);
+router.get('/bucketLists/:id', getSpecificBucketList);
 export default router;
