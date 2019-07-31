@@ -10,7 +10,7 @@ const router = express.Router();
 const { signUp, login } = UsersController;
 const { createBucketList, getAllbucketLists, getSpecificBucketList, 
         updateBucketList, deleteBucketlist } = bucketListController;
-const { createItem, getAllItem } = ItemController;
+const { createItem, getAllItem, getSpecificItem } = ItemController;
 
 router.post('/auth/signup', validation.auth, signUp);
 router.post('/auth/login', validation.auth, login);
@@ -21,6 +21,7 @@ router.put('/bucketLists/:id', verifyToken, updateBucketList);
 router.delete('/bucketLists/:id', verifyToken, deleteBucketlist );
 router.post('/bucketlists/:id/items',verifyToken, createItem);
 router.get('/bucketlists/:id/items', getAllItem);
+router.get('/bucketlists/:id/items/:id', getSpecificItem);
 
 
 export default router;

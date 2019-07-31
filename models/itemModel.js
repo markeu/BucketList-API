@@ -41,4 +41,16 @@ export default class Items {
       );
       return data.rows;
   }
+
+  /**
+   * @static
+   * @description Method to select one specific items
+   * @param {number} id Id of the items to be returned
+   * @returns {object} Single items details
+   * @memberof items
+   */  
+  static async selectOneitem(id) {
+    const data = await pool.query( "SELECT * FROM items WHERE id= $1;", [id]);
+    return data.rows[0];
+  }
 }

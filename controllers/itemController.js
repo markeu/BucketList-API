@@ -1,7 +1,7 @@
 import itemModel from '../models/itemModel';
 
 const {
-  create, getItemQuery,
+  create, getItemQuery, selectOneitem,
 } = itemModel;
 
 
@@ -39,14 +39,14 @@ export default class ItemController {
   }
 
    /**
-   * @description Get all bucketlists
+   * @description Get all item
    *
    * @static
    * @param {object} req
    * @param {object} res
    * @param {function} next
-   * @returns {object} bucketListsDetails
-   * @memberof BucketListController
+   * @returns {object} itemDetails
+   * @memberof ItemController
    */
   static async getAllItem(req, res, next) {
     try {
@@ -68,4 +68,37 @@ export default class ItemController {
       });
     }
   }
+
+  /**
+   * @description Get specific item
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {function} next
+   * @returns {object} itemsDetails
+   * @memberof ItemController
+   */
+  static async getSpecificItem(req, res, next) {
+    try {
+      const { id } = req.params;
+      const itemDetails = await selectOneitem(parseInt(id, 10));
+      if (itemDetails) {
+        return  res.status(200).json({
+            status: 'success',
+            data: itemDetails ,
+          });
+      }
+        return  res.status(400).json({
+            status: 'error',
+            error: 'item not found',
+          });
+    }catch (err) {
+    return res.status(500).json({
+      status: 'error',
+      error: 'Internal server error',
+    });
+    }
+  }
+
 }
