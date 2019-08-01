@@ -1,7 +1,7 @@
 import itemModel from '../models/itemModel';
 
 const {
-  create, getItemQuery, selectOneitem,
+  create, getItemQuery, selectOneitem, updateItem
 } = itemModel;
 
 
@@ -101,4 +101,39 @@ export default class ItemController {
     }
   }
 
+  
+  /**
+   * @description update specific item
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {function} next
+   * @returns {object} itemsDetails
+   * @memberof ItemController
+   */
+  static async updateItemData(req, res, next) {
+    try {
+      const { id } = req.params;
+      const dataFetch = { ...req.body };
+      const itemToBeUpdated = await selectOneitem(parseInt(id, 10));
+      if (!itemToBeUpdated) {
+        return res.status(400).json({
+         status: 'error',
+         error: 'item does not exist',
+       });
+     }       
+      const newData = Object.assign(itemToBeUpdated, dataFetch);
+      const updatedItemDetail = await updateItem(newData, id);   
+      return res.status(200).json({
+        status: 'success',
+        data: updatedItemDetail
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 'error',
+        error: 'Internal server error'
+      });
+  }  
+}
 }
