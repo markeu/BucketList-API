@@ -1,7 +1,7 @@
 import itemModel from '../models/itemModel';
 
 const {
-  create, getItemQuery, selectOneitem, updateItem
+  create, getItemsByBucketId, selectOneitem, updateItem, deleteOneItem
 } = itemModel;
 
 
@@ -50,7 +50,8 @@ export default class ItemController {
    */
   static async getAllItem(req, res, next) {
     try {
-      const allItem = await getItemQuery();
+        const data = req.params.id;
+      const allItem = await getItemsByBucketId(data);
       if (allItem.length > 0) {
         return res.status(200).json({
             status: 'success',
@@ -135,5 +136,37 @@ export default class ItemController {
         error: 'Internal server error'
       });
   }  
-}
+ }
+
+ /**
+   * @description Delete specific item
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {function} next
+   * @returns {object} itemsDetails
+   * @memberof ItemController
+   */
+  static async deleteItem(req, res) {
+    const { id } = req.params;
+    const itemId = await selectOneitem(id);
+    if (!itemId) {
+      return res.status(400).json({
+       status: 'error',
+       error: 'Item does not exist',
+     });
+   }   
+    const deletedItem = await deleteOneItem(id);
+    if (deletedItem ) {
+      return res.status(200).json({
+        status: 'success',
+        data: {message:'Item succesfully deleted'}
+      });
+    }
+    return res.status(400).json({
+      status: 'error',
+      error: 'Internal server error'
+    });
+  }
 }

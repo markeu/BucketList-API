@@ -42,6 +42,17 @@ export default class Items {
       return data.rows;
   }
 
+    /**
+   * @static
+   * @description Method to select all items with details
+   * @param {number} id Id of the items to be returned
+   * @returns {array} All items in the DB
+   * @memberof Item
+   */
+  static async getItemsByBucketId(id) {
+    const data = await pool.query( "SELECT * FROM items WHERE bucketList_id= $1;", [id]);
+      return data.rows;
+  }
   /**
    * @static
    * @description Method to select one specific item
@@ -76,5 +87,19 @@ export default class Items {
     WHERE id= $1 RETURNING *`, [id, name, done, date]
     );
     return rows[0];
+  }
+
+  /**
+   * @static
+   * @description Method to deleteitem
+   * @param {number} id Id of the item to be deleted
+   * @param {string} name new detail of the item
+   * @returns {object} Details of the newly deleted item
+   * @memberof ItemModel
+   */
+  static async deleteOneItem(id) {
+    const data = await pool.query("DELETE FROM items WHERE id= $1", [id]);
+    if (data.rowCount === 1) return true;
+    return false;
   }
 }

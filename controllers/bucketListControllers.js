@@ -1,8 +1,11 @@
 import bucketListModel from '../models/bucketListModel';
+import ItemsModel from '../models/itemModel';
 
 const {
   create, getbucketListQuery, selectOneBucketList, updateBucketList, deleteOneBucketList
 } = bucketListModel;
+
+const { getItemsByBucketId } = ItemsModel
 
 
 /**
@@ -84,9 +87,17 @@ export default class BucketListController {
       const { id } = req.params;
       const bucketListDetails = await selectOneBucketList(parseInt(id, 10));
       if (bucketListDetails) {
-        return  res.status(200).json({
+        const bucketItems = await getItemsByBucketId(parseInt(id, 10));
+          return  res.status(200).json({
             status: 'success',
-            data: bucketListDetails ,
+            data: {
+              id: bucketListDetails.id,
+              name: bucketListDetails.name,
+              items: bucketItems,
+              created_by: bucketListDetails.created_by,
+              date_created: bucketListDetails.date_created,
+              date_modified: bucketListDetails.date_modified
+            } ,
           });
       }
         return  res.status(400).json({
