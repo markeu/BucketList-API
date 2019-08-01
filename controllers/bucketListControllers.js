@@ -53,7 +53,8 @@ export default class BucketListController {
    */
   static async getAllbucketLists(req, res, next) {
     try {
-      const allBucketLists = await getbucketListQuery();
+      const { page, limit } = req.query
+      const allBucketLists = await getbucketListQuery(page, limit);
       if (allBucketLists.length > 0) {
         return res.status(200).json({
             status: 'success',
@@ -88,6 +89,8 @@ export default class BucketListController {
       const bucketListDetails = await selectOneBucketList(parseInt(id, 10));
       if (bucketListDetails) {
         const bucketItems = await getItemsByBucketId(parseInt(id, 10));
+        console.log(bucketItems);
+        if (bucketItems) {
           return  res.status(200).json({
             status: 'success',
             data: {
@@ -97,8 +100,10 @@ export default class BucketListController {
               created_by: bucketListDetails.created_by,
               date_created: bucketListDetails.date_created,
               date_modified: bucketListDetails.date_modified
+
             } ,
           });
+        }
       }
         return  res.status(400).json({
             status: 'error',

@@ -36,9 +36,9 @@ export default class BucketLists {
    * @returns {array} All bucketLists in the DB
    * @memberof BucketList
    */
-  static async getbucketListQuery() {
+  static async getbucketListQuery(page, limit) {
     const data = await pool.query(
-      `SELECT * FROM bucketLists`
+      `SELECT * FROM bucketLists LIMIT ${limit} OFFSET ${(page - 1) * limit}`
       );
       return data.rows;
   }

@@ -14,16 +14,16 @@ const { createItem, getAllItem, getSpecificItem, updateItemData, deleteItem } = 
 
 router.post('/auth/signup', validation.auth, signUp);
 router.post('/auth/login', validation.auth, login);
-router.post('/bucketlists', verifyToken, createBucketList);
-router.get('/bucketLists', verifyToken, getAllbucketLists);
+router.post('/bucketLists', verifyToken, createBucketList);
+router.get('/bucketLists', getAllbucketLists);
 router.get('/bucketLists/:id',verifyToken, getSpecificBucketList);
 router.put('/bucketLists/:id', verifyToken, updateBucketList);
 router.delete('/bucketLists/:id', verifyToken, deleteBucketlist );
-router.post('/bucketlists/:id/items',verifyToken, createItem);
-router.get('/bucketlists/:id/items',verifyToken, getAllItem);
-router.get('/bucketlists/:id/items/:id',verifyToken, getSpecificItem);
-router.put('/bucketlists/:id/items/:id', verifyToken, updateItemData);
-router.delete('/bucketlists/:id/items/:id', verifyToken, deleteItem);
+router.post('/bucketLists/:id/items',verifyToken, createItem);
+router.get('/bucketLists/:id/items',verifyToken, getAllItem);
+router.get('/bucketLists/:id/items/:id',verifyToken, getSpecificItem);
+router.put('/bucketLists/:id/items/:id', verifyToken, updateItemData);
+router.delete('/bucketLists/:id/items/:id', verifyToken, deleteItem);
 
 
 export default router;
