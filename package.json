@@ -9,6 +9,7 @@
     "create-table": " babel-node db/createTable.js",
     "drop-table": " babel-node db/dropTable.js",
     "seed": "babel-node db/seed.js",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "use-seed": "babel-node db/userSeed.js"
   },
   "repository": {
