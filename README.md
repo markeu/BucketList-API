@@ -18,8 +18,8 @@ User can delete a single bucket list.
 User can view all the created bucket lists.
 User can view a specific single bucket list by id.
 User can view a specific single bucket list by search.
-User can view list all the created items in a bucket list.
 User can create a new item in bucket list.
+User can view list all the created items in a bucket list.
 User can get a single item in a bucket list.
 User can update a bucket list item.
 User can delete an item in a bucket list.
@@ -32,7 +32,7 @@ Ensure that you have nodejs and npm installed in your computer
 a. Clone this repository into your named folder
 
 ```bash
-git clone -b develop https://github.com/markeu/BucketList-API
+git clone -b master https://github.com/markeu/BucketList-API
 git status
 ```
 
@@ -63,15 +63,15 @@ POST  | api/v1/auth/signup  | Create user account  |
 POST  | api/v1/auth/login | Login a user |
 POST  | api/v1/bucketLists | create a new bucket list |
 GET  | api/v1/bucketLists | view all the created bucket lists |
-GET  | api/v1/bucketLists/search?q =​ <bucketName> |
-GET  | api/v1//bucketLists/<id>  |  view a specific single bucket list by id | 
-PUT  | api/v1/property/bucketLists/<id> | update this bucket list |  
-DELETE  | api/v1/bucketLists/<id> | delete a single bucket list |  
-POST  | api/v1/bucketLists/<id>/items  | list all the created items in a bucket list |
-GET  | api/v1/bucketLists/<id>/items  | View all bucket list items |
-GET  | api/v1/bucketLists/<id>/items/<id>  | view specific bucket list item |
-PUT  | api/v1/bucketLists/<id>/items/<id>  | Update a specific bucket list item |
-DELETE  | api/v1/bucketLists/<id>/items/<id>  | Delete specific bucket list item |
+GET  | api/v1/bucketLists/search?q=​ :bucketName |  view a specific single bucket list by search |
+GET  | api/v1//bucketLists/:id  |  view a specific single bucket list by id | 
+PUT  | api/v1/bucketLists/:id | update this bucket list |  
+DELETE | api/v1/bucketLists/:id | delete a single bucket list |  
+POST  | api/v1/bucketLists/:id/items  | list all the created items in a bucket list |
+GET  | api/v1/bucketLists/:id/items  | View all bucket list items |
+GET  | api/v1/bucketLists/:id/items/:id  | view specific bucket list item |
+PUT  | api/v1/bucketLists/:id/items/:id  | Update a specific bucket list item |
+DELETE  | api/v1/bucketLists/:id/items/:id  | Delete specific bucket list item |
 
 
 ## Author
