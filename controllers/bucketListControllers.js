@@ -2,7 +2,7 @@ import bucketListModel from '../models/bucketListModel';
 import ItemsModel from '../models/itemModel';
 
 const {
-  create, getbucketListQuery, selectOneBucketList, updateBucketList, deleteOneBucketList
+  create, getbucketListQuery, selectOneBucketList, updateBucketList, deleteOneBucketList, searchBucketList
 } = bucketListModel;
 
 const { getItemsByBucketId } = ItemsModel
@@ -53,7 +53,7 @@ export default class BucketListController {
    */
   static async getAllbucketLists(req, res, next) {
     try {
-      const { page, limit } = req.query
+      const { page=1, limit=20 } = req.query
       const allBucketLists = await getbucketListQuery(page, limit);
       if (allBucketLists.length > 0) {
         return res.status(200).json({
@@ -61,7 +61,7 @@ export default class BucketListController {
             data: allBucketLists,
           });
       }
-      return res.status(400).json({
+      return res.status(404).json({
         status: 'error',
         error: 'There are no bucketlist in this database',
       });
@@ -72,6 +72,39 @@ export default class BucketListController {
       });
     }
   }
+
+  /**
+   * @description Get all bucketlists
+   *
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {function} next
+   * @returns {object} bucketListsDetails
+   * @memberof BucketListController
+   */
+  static async searchBucketLists(req, res, next) {
+    try {
+      const { q } = req.query
+      const allBucketLists = await searchBucketList(q);
+      if (allBucketLists.length > 0) {
+        return res.status(200).json({
+            status: 'success',
+            data: allBucketLists,
+          });
+      }
+      return res.status(404).json({
+        status: 'error',
+        error: 'There are no bucketlist in this database',
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 'error',
+        error: err
+      });
+    }
+  }
+
 
 /**
    * @description Get specific bucketlist
@@ -89,7 +122,6 @@ export default class BucketListController {
       const bucketListDetails = await selectOneBucketList(parseInt(id, 10));
       if (bucketListDetails) {
         const bucketItems = await getItemsByBucketId(parseInt(id, 10));
-        console.log(bucketItems);
         if (bucketItems) {
           return  res.status(200).json({
             status: 'success',
@@ -105,7 +137,7 @@ export default class BucketListController {
           });
         }
       }
-        return  res.status(400).json({
+        return  res.status(404).json({
             status: 'error',
             error: 'Bucketlist not found',
           });

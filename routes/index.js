@@ -9,14 +9,15 @@ const router = express.Router();
 
 const { signUp, login } = UsersController;
 const { createBucketList, getAllbucketLists, getSpecificBucketList, 
-        updateBucketList, deleteBucketlist } = bucketListController;
+        updateBucketList, deleteBucketlist, searchBucketLists } = bucketListController;
 const { createItem, getAllItem, getSpecificItem, updateItemData, deleteItem } = ItemController;
 
 router.post('/auth/signup', validation.auth, signUp);
 router.post('/auth/login', validation.auth, login);
 router.post('/bucketLists', verifyToken, createBucketList);
-router.get('/bucketLists', getAllbucketLists);
-router.get('/bucketLists/:id',verifyToken, getSpecificBucketList);
+router.get('/bucketLists',verifyToken, getAllbucketLists);
+router.get('/bucketLists/search',verifyToken, searchBucketLists);           //sort bucketList by name route
+router.get('/bucketLists/:id',verifyToken, getSpecificBucketList);          //sort bucketList by id route
 router.put('/bucketLists/:id', verifyToken, updateBucketList);
 router.delete('/bucketLists/:id', verifyToken, deleteBucketlist );
 router.post('/bucketLists/:id/items',verifyToken, createItem);

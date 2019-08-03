@@ -18,3 +18,5 @@ const port = process.env.PORT || 5555;
 app.listen(port, () => {
 	console.log(`BucketList API started on port ${port}`);
 });
+
+export default app;

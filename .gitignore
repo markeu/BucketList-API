@@ -1,2 +1,9 @@
 /node_modules
-/.env
+
+# nyc test coverage
+.nyc_output
+
+node_modules/
+dist/
+package-lock.json
+.env

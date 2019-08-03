@@ -19,9 +19,9 @@ export default class BucketLists {
     const date = new Date();
     const {
       name,
-      created_by
-      
+      created_by  
     } = bucketList;
+    
     const { rows } = await pool.query(`INSERT INTO bucketLists
       ( name, date_modified, created_by) 
       VALUES ($1, $2, $3)
@@ -39,6 +39,21 @@ export default class BucketLists {
   static async getbucketListQuery(page, limit) {
     const data = await pool.query(
       `SELECT * FROM bucketLists LIMIT ${limit} OFFSET ${(page - 1) * limit}`
+      );
+      return data.rows;
+  }
+
+  
+  /**
+   * @static
+   * @description Method to select all bucketLists with details
+   * @param {number} id Id of the bucketLists to be returned
+   * @returns {array} All bucketLists in the DB
+   * @memberof BucketList
+   */
+  static async searchBucketList(q) {
+    const data = await pool.query(
+      `SELECT * FROM bucketLists WHERE name LIKE '%${q}%';`
       );
       return data.rows;
   }

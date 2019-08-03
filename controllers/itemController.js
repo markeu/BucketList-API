@@ -58,7 +58,7 @@ export default class ItemController {
             data: allItem,
           });
       }
-      return res.status(400).json({
+      return res.status(404).json({
         status: 'error',
         error: 'There are no item in this database',
       });
@@ -90,7 +90,7 @@ export default class ItemController {
             data: itemDetails ,
           });
       }
-        return  res.status(400).json({
+        return  res.status(404).json({
             status: 'error',
             error: 'item not found',
           });
@@ -126,7 +126,7 @@ export default class ItemController {
      }       
       const newData = Object.assign(itemToBeUpdated, dataFetch);
       const updatedItemDetail = await updateItem(newData, id);   
-      return res.status(200).json({
+      return res.status(201).json({
         status: 'success',
         data: updatedItemDetail
       });
