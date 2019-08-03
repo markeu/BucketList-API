@@ -1,0 +1,20 @@
+
+language: node_js
+node_js:
+  - v10.16.0
+
+before_script:
+- cd server
+- npm install codeclimate-test-reporter istanbul -g
+
+script:
+  - npm install
+  - npm test
+
+
+after_success:
+  - npm run coverage
+ 
+
+notifications:
+  email: false  
