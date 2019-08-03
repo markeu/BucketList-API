@@ -24,7 +24,6 @@ const User = {
 };
 
 describe('Items test', () => {
-
     let token;
     before((done) => {
         chai
