@@ -9,20 +9,8 @@ export default {
       return [];
     },
   
-    checkIntergerFields: (field, value) => {
-      const valueInt = parseFloat(value);
-      if (!Number(valueInt)) return [`${field} must be number or float`];
-      return [];
-    },
-  
     checkStringFields: (field, value) => {
       if (/\d/.test(value)) return [`${field} must not contain numbers.`];
-      return [];
-    },
-  
-    checkStatus: (field, value) => {
-      const final = value.includes('Active' || 'Cancelled');
-      if (!final) return [`${field} must be limited to ACTIVE or CANCELLED.`];
       return [];
     },
   };

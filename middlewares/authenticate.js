@@ -38,23 +38,3 @@ export const verifyToken = (req, res, next) => {
   });
 };
 
-/**
-   *
-   * Admin verificatin
-   * @static
-   * @param {object} req
-   * @param {object} res
-   * @param {object | void } next
-   * @memberof encrypt
-   */
-export const isAdmin = (req, res, next) => {
-  const { is_admin } = req.body;
-
-  if (is_admin !== true) {
-    return res.status(401).json({
-      status: 'error',
-      error: 'Only Admins can perform this operation',
-    });
-  }
-  return next();
-};
