@@ -14,7 +14,7 @@ User can update this bucket list.
 User can delete a single bucket list.
 User can view all the created bucket lists.
 User can view a specific single bucket list by id.
-User can view a specific single bucket list by search.
+User can view bucket lists by search.
 User can create a new item in bucket list.
 User can view list all the created items in a bucket list.
 User can get a single item in a bucket list.
@@ -60,7 +60,7 @@ POST  | api/v1/auth/signup  | Create user account  |
 POST  | api/v1/auth/login | Login a user |
 POST  | api/v1/bucketLists | create a new bucket list |
 GET  | api/v1/bucketLists | view all the created bucket lists |
-GET  | api/v1/bucketLists/search?q=​ :bucketName |  view a specific single bucket list by search |
+GET  | api/v1/bucketLists/search?q=​ :bucketName |  view bucket lists by search |
 GET  | api/v1//bucketLists/:id  |  view a specific single bucket list by id | 
 PUT  | api/v1/bucketLists/:id | update this bucket list |  
 DELETE | api/v1/bucketLists/:id | delete a single bucket list |  
